@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --color-ink: #141210;
+  --color-panel: #1c1916;
+  --color-panel-2: #26221d;
+  --color-paper: #f3efe6;
+  --color-brass: #a39888;
+  --color-rule: #3a342c;
+  --color-safelight: #e07a3d;
+  --color-safelight-ink: #2a1408;
+  --color-alert: #e15b4a;
+  --radius-card: 1.25rem;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-safelight);
+    outline-offset: 3px;
+  }
+}
+
+@keyframes plate-pulse {
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.plate-wait {
+  animation: plate-pulse 1.15s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plate-wait {
+    animation: none;
+  }
+}
