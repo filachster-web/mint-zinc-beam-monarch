@@ -1,0 +1,104 @@
+<div class="plate-app">
+  <div class="plate-bar"></div>
+  <main class="plate-main">
+    <header class="plate-head">
+      <div>
+        <p class="plate-kicker">Студия кадра</p>
+        <h1>Twinplate</h1>
+        <p class="plate-lead">
+          Одно фото — описание и два промпта на английском. Длину каждого текста можно задать от 1000 до 4000
+          знаков и добавить свои подробности.
+        </p>
+      </div>
+      <p class="plate-note">Кадр уходит только в запрос и не хранится на сервере. История остаётся в этом браузере.</p>
+    </header>
+
+    <div class="plate-grid">
+      <section class="plate-side">
+        <label class="plate-drop" id="plate-drop">
+          <input
+            id="plate-file"
+            type="file"
+            accept="image/*,.jpg,.jpeg,.jpe,.jfif,.png,.gif,.webp,.bmp,.avif,.tif,.tiff,.heic,.heif,.svg,.ico"
+          />
+          <span class="plate-drop-empty" id="plate-empty">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v10M7 10l5-5 5 5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="plate-drop-title">Положите кадр</span>
+            <span>JPG, JPEG, PNG, GIF, WebP, BMP, AVIF, TIFF, HEIC или SVG. Можно вставить из буфера.</span>
+          </span>
+          <img id="plate-preview" alt="" hidden />
+        </label>
+        <p class="plate-meta" id="plate-meta" hidden>
+          <span id="plate-name"></span>
+          <span id="plate-size"></span>
+        </p>
+
+        <div class="plate-card">
+          <label class="plate-field" for="plate-notes">
+            <span>Подробности</span>
+            <textarea id="plate-notes" maxlength="1200" rows="4" placeholder="Что вплести в описание и оба промпта: плёнка, свет, настроение, акцент."></textarea>
+            <span class="plate-count" id="plate-notes-count">0 / 1200</span>
+          </label>
+          <label class="plate-field" for="plate-desc-len">
+            <span>Длина описания <b id="plate-desc-val">2500</b></span>
+            <input id="plate-desc-len" type="range" min="1000" max="4000" step="50" value="2500" />
+          </label>
+          <label class="plate-field" for="plate-prompt-len">
+            <span>Длина каждого промпта <b id="plate-prompt-val">2000</b></span>
+            <input id="plate-prompt-len" type="range" min="1000" max="4000" step="50" value="2000" />
+          </label>
+          <p class="plate-hint">Это потолок. Текст стремится к выбранному числу знаков и не превышает его.</p>
+        </div>
+
+        <div class="plate-actions">
+          <button id="plate-go" type="button" class="plate-primary" disabled>Описать и написать промпты</button>
+          <button id="plate-another" type="button" class="plate-ghost">Другой файл</button>
+        </div>
+        <p id="plate-error" class="plate-error" role="alert" hidden></p>
+        <p class="plate-hint">Промпты описывают кадр прямо, без команд обходить правила модели.</p>
+      </section>
+
+      <section class="plate-out" aria-live="polite">
+        <div id="plate-idle" class="plate-card">
+          <p class="plate-kicker">Два слепка</p>
+          <h2>Сначала факты кадра, потом два разных текста</h2>
+          <p class="plate-lead">
+            Первый промпт звучит как отчёт оператора. Второй — как редакционная заметка. Оба держат тот же сюжет,
+            свет, кроп и пропорции и просят фотореализм 8K.
+          </p>
+          <ol class="plate-steps">
+            <li><span>01</span>Кадр</li>
+            <li><span>02</span>Описание</li>
+            <li><span>03</span>Два промпта</li>
+          </ol>
+        </div>
+        <div id="plate-result" hidden>
+          <div class="plate-result-bar">
+            <p id="plate-result-count" class="plate-hint"></p>
+            <div class="plate-actions">
+              <button id="plate-copy-all" type="button" class="plate-ghost">Всё</button>
+              <button id="plate-download" type="button" class="plate-ghost">Файл</button>
+            </div>
+          </div>
+          <article class="plate-sheet" data-key="description">
+            <header><p class="plate-kicker">Description</p><h3>Описание</h3><button type="button" data-copy="description">Копировать</button></header>
+            <p class="plate-body" id="plate-description"></p>
+          </article>
+          <article class="plate-sheet" data-key="a">
+            <header><p class="plate-kicker">Prompt A</p><h3>Технический</h3><button type="button" data-copy="a">Копировать</button></header>
+            <p class="plate-body" id="plate-prompt-a"></p>
+          </article>
+          <article class="plate-sheet" data-key="b">
+            <header><p class="plate-kicker">Prompt B</p><h3>Сенсорный</h3><button type="button" data-copy="b">Копировать</button></header>
+            <p class="plate-body" id="plate-prompt-b"></p>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <section id="plate-history" class="plate-history" hidden>
+      <h2>Недавние</h2>
+      <ul id="plate-history-list"></ul>
+    </section>
+  </main>
+</div>
